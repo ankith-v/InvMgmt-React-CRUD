@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import TutorialDataService from "../services/TutorialService";
+import ItemDataService from "../services/ItemService";
 import { useTable } from "react-table";
 
-const TutorialsList = (props) => {
-  const [tutorials, setTutorials] = useState([]);
+const ItemsList = (props) => {
+  const [item, setItems] = useState([]);
   const [searchTitle, setSearchTitle] = useState("");
-  const tutorialsRef = useRef();
+  const itemsRef = useRef();
 
-  tutorialsRef.current = tutorials;
+  itemsRef.current = item;
 
   useEffect(() => {
-    retrieveTutorials();
+    retrieveItems();
   }, []);
 
   const onChangeSearchTitle = (e) => {
@@ -18,13 +18,13 @@ const TutorialsList = (props) => {
     setSearchTitle(searchTitle);
   };
 
-  const retrieveTutorials = () => {
-    TutorialDataService.getAll()
+  const retrieveItems = () => {
+    ItemDataService.getAll()
       .then((response) => {
         if (response.data === "") {
           response.data = [];
         }
-        setTutorials(response.data);
+        setItems(response.data);
       })
       .catch((e) => {
         console.log(e);
@@ -32,11 +32,11 @@ const TutorialsList = (props) => {
   };
 
   const refreshList = () => {
-    retrieveTutorials();
+    retrieveItems();
   };
 
-  const removeAllTutorials = () => {
-    TutorialDataService.removeAll()
+  const removeAllItems = () => {
+    ItemDataService.removeAll()
       .then((response) => {
         console.log(response.data);
         refreshList();
@@ -47,35 +47,35 @@ const TutorialsList = (props) => {
   };
 
   const findByTitle = () => {
-    TutorialDataService.findByTitle(searchTitle)
+    ItemDataService.findByTitle(searchTitle)
       .then((response) => {
         if (response.data === "") {
           response.data = [];
         }
-        setTutorials(response.data);
+        setItems(response.data);
       })
       .catch((e) => {
         console.log(e);
       });
   };
 
-  const openTutorial = (rowIndex) => {
-    const id = tutorialsRef.current[rowIndex].id;
+  const openItem = (rowIndex) => {
+    const id = itemsRef.current[rowIndex].id;
 
-    props.history.push("/tutorials/" + id);
+    props.history.push("/inventory/" + id);
   };
 
-  const deleteTutorial = (rowIndex) => {
-    const id = tutorialsRef.current[rowIndex].id;
+  const deleteItem = (rowIndex) => {
+    const id = itemsRef.current[rowIndex].id;
 
-    TutorialDataService.remove(id)
+    ItemDataService.remove(id)
       .then((response) => {
-        props.history.push("/tutorials");
+        props.history.push("/inventory");
 
-        let newTutorials = [...tutorialsRef.current];
-        newTutorials.splice(rowIndex, 1);
+        let newItems = [...itemsRef.current];
+        newItems.splice(rowIndex, 1);
 
-        setTutorials(newTutorials);
+        setItems(newItems);
       })
       .catch((e) => {
         console.log(e);
@@ -106,11 +106,11 @@ const TutorialsList = (props) => {
           const rowIdx = props.row.id;
           return (
             <div>
-              <span onClick={() => openTutorial(rowIdx)}>
+              <span onClick={() => openItem(rowIdx)}>
                 <i className="far fa-edit action mr-2"></i>
               </span>
 
-              <span onClick={() => deleteTutorial(rowIdx)}>
+              <span onClick={() => deleteItem(rowIdx)}>
                 <i className="fas fa-trash action"></i>
               </span>
             </div>
@@ -124,7 +124,7 @@ const TutorialsList = (props) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({
       columns,
-      data: tutorials,
+      data: item,
     });
 
   return (
@@ -183,7 +183,7 @@ const TutorialsList = (props) => {
       </div>
 
       <div className="col-md-8">
-        <button className="btn btn-sm btn-danger" onClick={removeAllTutorials}>
+        <button className="btn btn-sm btn-danger" onClick={removeAllItems}>
           Remove All
         </button>
       </div>
@@ -191,4 +191,4 @@ const TutorialsList = (props) => {
   );
 };
 
-export default TutorialsList;
+export default ItemsList;

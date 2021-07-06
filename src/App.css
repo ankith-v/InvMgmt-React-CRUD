@@ -11,3 +11,7 @@
   max-width: 300px;
   margin: auto;
 }
+
+.navbar-brand {
+  padding-left: 3%;
+}
