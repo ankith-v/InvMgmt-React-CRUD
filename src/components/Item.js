@@ -6,7 +6,8 @@ const Item = (props) => {
     id: null,
     title: "",
     description: "",
-    published: false,
+    listed: false,
+    count: "",
   };
   const [currentItem, setCurrentItem] = useState(initialItemState);
   const [message, setMessage] = useState("");
@@ -31,17 +32,18 @@ const Item = (props) => {
     setCurrentItem({ ...currentItem, [name]: value });
   };
 
-  const updatePublished = (status) => {
+  const updateListed = (status) => {
     var data = {
       id: currentItem.id,
       title: currentItem.title,
       description: currentItem.description,
-      published: status,
+      listed: status,
+      count: currentItem.count,
     };
 
     ItemDataService.update(currentItem.id, data)
       .then((response) => {
-        setCurrentItem({ ...currentItem, published: status });
+        setCurrentItem({ ...currentItem, listed: status });
         console.log(response.data);
         setMessage("The status was updated successfully!");
       })
@@ -100,28 +102,39 @@ const Item = (props) => {
                 onChange={handleInputChange}
               />
             </div>
+            <div className="form-group">
+              <label htmlFor="count">Count</label>
+              <input
+                type="text"
+                className="form-control"
+                id="count"
+                name="count"
+                value={currentItem.count}
+                onChange={handleInputChange}
+              />
+            </div>
 
             <div className="form-group">
               <label>
                 <strong>Status:</strong>
               </label>
-              {currentItem.published ? "Published" : "Pending"}
+              {currentItem.listed ? "Listed" : "Unlisted"}
             </div>
           </form>
 
-          {currentItem.published ? (
+          {currentItem.listed ? (
             <button
               className="badge badge-primary mr-2"
-              onClick={() => updatePublished(false)}
+              onClick={() => updateListed(false)}
             >
-              UnPublish
+              Unlist
             </button>
           ) : (
             <button
               className="badge badge-primary mr-2"
-              onClick={() => updatePublished(true)}
+              onClick={() => updateListed(true)}
             >
-              Publish
+              List
             </button>
           )}
 

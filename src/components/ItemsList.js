@@ -93,10 +93,14 @@ const ItemsList = (props) => {
         accessor: "description",
       },
       {
+        Header: "Count",
+        accessor: "count",
+      },
+      {
         Header: "Status",
-        accessor: "published",
+        accessor: "listed",
         Cell: (props) => {
-          return props.value ? "Published" : "Pending";
+          return props.value ? "Listed" : "Unlisted";
         },
       },
       {

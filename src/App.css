@@ -22,11 +22,12 @@
   padding-right: 2%;
   margin-left: 1%;
   margin-right: 2%;
+  border-radius: 0.5em;
 }
 
-.nav-item{
-  padding-left: 2%;
-  padding-right: 2%;
+.navbar-nav{
+  padding: 0% 1% 0% 1%;
   margin-left: 2%;
   margin-right: 2%;
+  border-radius: 0.5em ;
 }

@@ -6,7 +6,8 @@ const AddItem = () => {
     id: null,
     title: "",
     description: "",
-    published: false,
+    listed: false,
+    count: "",
   };
   const [item, setItem] = useState(initialItemState);
   const [submitted, setSubmitted] = useState(false);
@@ -17,12 +18,13 @@ const AddItem = () => {
   };
 
   const saveItem = () => {
-    if (item.title == "") {
+    if (item.title === "") {
       return;
     }
     var data = {
       title: item.title,
       description: item.description,
+      count: item.count,
     };
 
     ItemDataService.create(data)
@@ -31,7 +33,8 @@ const AddItem = () => {
           id: response.data.id,
           title: response.data.title,
           description: response.data.description,
-          published: response.data.published,
+          listed: response.data.listed,
+          count: response.data.count,
         });
         setSubmitted(true);
         console.log(response.data);
@@ -57,7 +60,7 @@ const AddItem = () => {
         </div>
       ) : (
         <div>
-          <div className="form-group">
+          <div style={{marginTop: "3%"}} className="form-group">
             <label htmlFor="title">Title</label>
             <input
               type="text"
@@ -70,7 +73,7 @@ const AddItem = () => {
             />
           </div>
 
-          <div className="form-group">
+          <div style={{marginTop: "3%"}} className="form-group">
             <label htmlFor="description">Description</label>
             <input
               type="text"
@@ -83,7 +86,20 @@ const AddItem = () => {
             />
           </div>
 
-          <button onClick={saveItem} className="btn btn-success">
+          <div style={{marginTop: "3%"}} className="form-group">
+            <label htmlFor="description">Count</label>
+            <input
+              type="text"
+              className="form-control"
+              id="count"
+              required
+              value={item.count}
+              onChange={handleInputChange}
+              name="count"
+            />
+          </div>
+
+          <button style={{backgroundColor: "darkgreen",marginTop: "10%"}} onClick={saveItem} className="btn btn-success">
             Submit
           </button>
         </div>
