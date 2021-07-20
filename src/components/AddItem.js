@@ -1,37 +1,40 @@
 import React, { useState } from "react";
-import TutorialDataService from "../services/TutorialService";
+import ItemDataService from "../services/ItemService";
 
-const AddTutorial = () => {
-  const initialTutorialState = {
+const AddItem = () => {
+  const initialItemState = {
     id: null,
     title: "",
     description: "",
-    published: false,
+    listed: false,
+    count: "",
   };
-  const [tutorial, setTutorial] = useState(initialTutorialState);
+  const [item, setItem] = useState(initialItemState);
   const [submitted, setSubmitted] = useState(false);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setTutorial({ ...tutorial, [name]: value });
+    setItem({ ...item, [name]: value });
   };
 
-  const saveTutorial = () => {
-    if (tutorial.title == "") {
+  const saveItem = () => {
+    if (item.title === "") {
       return;
     }
     var data = {
-      title: tutorial.title,
-      description: tutorial.description,
+      title: item.title,
+      description: item.description,
+      count: item.count,
     };
 
-    TutorialDataService.create(data)
+    ItemDataService.create(data)
       .then((response) => {
-        setTutorial({
+        setItem({
           id: response.data.id,
           title: response.data.title,
           description: response.data.description,
-          published: response.data.published,
+          listed: response.data.listed,
+          count: response.data.count,
         });
         setSubmitted(true);
         console.log(response.data);
@@ -41,8 +44,8 @@ const AddTutorial = () => {
       });
   };
 
-  const newTutorial = () => {
-    setTutorial(initialTutorialState);
+  const newItem = () => {
+    setItem(initialItemState);
     setSubmitted(false);
   };
 
@@ -51,39 +54,52 @@ const AddTutorial = () => {
       {submitted ? (
         <div>
           <h4>You submitted successfully!</h4>
-          <button className="btn btn-success" onClick={newTutorial}>
+          <button className="btn btn-success" onClick={newItem}>
             Add
           </button>
         </div>
       ) : (
         <div>
-          <div className="form-group">
+          <div style={{marginTop: "3%"}} className="form-group">
             <label htmlFor="title">Title</label>
             <input
               type="text"
               className="form-control"
               id="title"
               required
-              value={tutorial.title}
+              value={item.title}
               onChange={handleInputChange}
               name="title"
             />
           </div>
 
-          <div className="form-group">
+          <div style={{marginTop: "3%"}} className="form-group">
             <label htmlFor="description">Description</label>
             <input
               type="text"
               className="form-control"
               id="description"
               required
-              value={tutorial.description}
+              value={item.description}
               onChange={handleInputChange}
               name="description"
             />
           </div>
 
-          <button onClick={saveTutorial} className="btn btn-success">
+          <div style={{marginTop: "3%"}} className="form-group">
+            <label htmlFor="description">Count</label>
+            <input
+              type="text"
+              className="form-control"
+              id="count"
+              required
+              value={item.count}
+              onChange={handleInputChange}
+              name="count"
+            />
+          </div>
+
+          <button style={{backgroundColor: "darkgreen",marginTop: "10%"}} onClick={saveItem} className="btn btn-success">
             Submit
           </button>
         </div>
@@ -92,4 +108,4 @@ const AddTutorial = () => {
   );
 };
 
-export default AddTutorial;
+export default AddItem;

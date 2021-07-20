@@ -2,22 +2,22 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
 import { Switch, Route, Link } from "react-router-dom";
-import AddTutorial from "./components/AddTutorial";
-import Tutorial from "./components/Tutorial";
-import TutorialsList from "./components/TutorialsList";
+import AddItem from "./components/AddItem";
+import Item from "./components/Item";
+import ItemsList from "./components/ItemsList";
 import "./App.css";
 
 function App() {
   return (
     <div>
-      <nav className="navabr navbar-expand navbar-dark bg-dark">
-        <a href="/tutorials" className="navbar-brand">
-          DEMO
+      <nav className="navbar navbar-expand navbar-dark bg-dark">
+        <a href="/inventory" className="navbar-brand">
+          Inventory
         </a>
-        <div className="navbar-nav mr-auto">
+        <div className="navbar-nav ml-auto">
           <li className="nav-item">
-            <Link to={"/tutorials"} className="nav-link">
-              Tutorials
+            <Link to={"/inventory"} className="nav-link">
+              Items
             </Link>
           </li>
           <li className="nav-item">
@@ -30,9 +30,9 @@ function App() {
 
       <div className="container mt-3">
         <Switch>
-          <Route exact path={["/", "/tutorials"]} component={TutorialsList} />
-          <Route exact path="/add" component={AddTutorial} />
-          <Route exact path="/tutorials/:id" component={Tutorial} />
+          <Route exact path={["/", "/inventory"]} component={ItemsList} />
+          <Route exact path="/add" component={AddItem} />
+          <Route exact path="/inventory/:id" component={Item} />
         </Switch>
       </div>
     </div>
