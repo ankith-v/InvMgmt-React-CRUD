@@ -1,3 +1,8 @@
+*{
+  background-color: black;
+  color: lightgray;
+}
+
 .list .action {
   cursor: pointer;
 }
@@ -13,5 +18,15 @@
 }
 
 .navbar-brand {
-  padding-left: 3%;
+  padding-left: 2%;
+  padding-right: 2%;
+  margin-left: 1%;
+  margin-right: 2%;
+}
+
+.nav-item{
+  padding-left: 2%;
+  padding-right: 2%;
+  margin-left: 2%;
+  margin-right: 2%;
 }
