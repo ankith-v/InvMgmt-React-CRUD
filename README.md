@@ -1,3 +1,5 @@
+A CRUD application for inventory management using a ReactJS frontend and a SpringBoot backend
+
 # Up and running
 ![inv-ss](https://user-images.githubusercontent.com/53376419/130316771-0259cd8e-13c9-4a19-a979-ea4e0c3ce0fc.jpg)
 
