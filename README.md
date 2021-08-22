@@ -15,4 +15,7 @@ A CRUD application for inventory management using a ReactJS frontend and a Sprin
 # To use the application :
 Clone this repo and the backend repo(set-up instructions for that repo are at https://github.com/ankith-v/InvMgmt-SB-CRUD#readme)
 
+Navigate to repo folder and run `npm install` / `yarn install` for all related dependencies
+
 run start script : `npm run start` / `yarn start`
+runs on port 8081
